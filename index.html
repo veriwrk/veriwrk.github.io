@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="manifest" href="manifest.json">
+ <meta name="theme-color" content="#0d1b2a">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+ <meta name="apple-mobile-web-app-title" content="VeriWrk">
+<title>VeriWrk — Your work is real. Now make it verifiable.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+ font-family: 'Inter', sans-serif;
+ background: #060d1a;
+ color: #e2ecf8;
+ overflow-x: hidden;
+ line-height: 1.6;
+}
+
+/* ── Palette ── */
+:root {
+ --navy-deep:  #060d1a;
+ --navy-mid:  #0d1b2a;
+ --navy-card:  #111f35;
+ --navy-light: #1a2f4a;
+ --blue:    #2b7fd4;
+ --blue-light: #5ba3e8;
+ --orange:   #f5a623;
+ --orange-warm: #f7b84b;
+ --white:    #ffffff;
+ --text:    #e2ecf8;
+ --muted:    #7a9bbf;
+ --border:   rgba(43,127,212,0.2);
+}
+
+/* ── Gradients ── */
+.grad-hero {
+ background: radial-gradient(ellipse at 60% 0%, rgba(43,127,212,0.3) 0%, transparent 55%),
+       radial-gradient(ellipse at 10% 80%, rgba(245,166,35,0.15) 0%, transparent 45%),
+       radial-gradient(ellipse at 90% 90%, rgba(43,127,212,0.1) 0%, transparent 40%),
+       linear-gradient(180deg, #0a1628 0%, #080f1e 100%);
+}
+.grad-section {
+ background: radial-gradient(ellipse at 90% 60%, rgba(245,166,35,0.07) 0%, transparent 50%), linear-gradient(180deg, #060d1a 0%, #0a1628 50%, #060d1a 100%);
+}
+.grad-card {
+ background: linear-gradient(135deg, #111f35 0%, #0e1a2d 100%);
+}
+.grad-orange {
+ background: linear-gradient(135deg, rgba(245,166,35,0.15) 0%, rgba(245,166,35,0.05) 100%);
+ border: 1px solid rgba(245,166,35,0.25);
+}
+.grad-blue {
+ background: linear-gradient(135deg, rgba(43,127,212,0.15) 0%, rgba(43,127,212,0.05) 100%);
+ border: 1px solid rgba(43,127,212,0.25);
+}
+.grad-cta {
+ background: linear-gradient(135deg, #0f2040 0%, #091528 100%);
+ border: 1px solid rgba(43,127,212,0.3);
+}
+
+/* ── NAV ── */
+nav {
+ position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+ display: flex; align-items: center; justify-content: space-between;
+ padding: 16px 48px;
+ background: rgba(6,13,26,0.85);
+ backdrop-filter: blur(16px);
+ border-bottom: 1px solid rgba(43,127,212,0.15);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark {
+ width: 32px; height: 32px;
+ background: linear-gradient(135deg, #f5a623 0%, #f7b84b 100%);
+ border-radius: 8px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 16px; font-weight: 800; color: #060d1a;
+}
+.nav-logo-text { font-size: 18px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+ background: linear-gradient(135deg, #2b7fd4 0%, #1a5fa8 100%);
+ color: var(--white); border: none; border-radius: 24px;
+ padding: 10px 22px; font-size: 14px; font-weight: 600;
+ cursor: pointer; transition: opacity 0.2s; text-decoration: none;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── HERO ── */
+.hero {
+ min-height: 100vh;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ text-align: center;
+ padding: 120px 24px 80px;
+ background: linear-gradient(180deg, transparent 70%, #080f1e 100%);
+}
+.hero-pill {
+ display: inline-flex; align-items: center; gap: 8px;
+ background: rgba(43,127,212,0.1);
+ border: 1px solid rgba(43,127,212,0.3);
+ border-radius: 24px;
+ padding: 8px 18px;
+ font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+ color: var(--blue-light); text-transform: uppercase;
+ margin-bottom: 36px;
+}
+.hero-pill-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.85)} }
+.hero h1 {
+ font-family: 'Fraunces', Georgia, serif;
+ font-size: clamp(42px, 7vw, 80px);
+ font-weight: 300;
+ line-height: 1.1;
+ letter-spacing: -1px;
+ color: var(--white);
+ max-width: 800px;
+ margin-bottom: 4px;
+}
+.hero h1 em {
+ font-style: italic;
+ color: var(--orange);
+ font-weight: 500;
+}
+.hero-sub {
+ font-size: clamp(17px, 2vw, 21px);
+ color: var(--text);
+ max-width: 620px;
+ margin: 20px auto 14px;
+ line-height: 1.55;
+}
+.hero-body {
+ font-size: 14px; color: var(--muted);
+ max-width: 560px;
+ margin: 0 auto 40px;
+ line-height: 1.7;
+}
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+.btn-primary {
+ background: linear-gradient(135deg, #2b7fd4 0%, #1a5fa8 100%);
+ color: var(--white); border: none; border-radius: 28px;
+ padding: 14px 28px; font-size: 15px; font-weight: 600;
+ cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+ text-decoration: none; display: inline-block;
+ box-shadow: 0 4px 20px rgba(43,127,212,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(43,127,212,0.4); }
+.btn-ghost {
+ background: rgba(255,255,255,0.06);
+ border: 1px solid rgba(255,255,255,0.15);
+ color: var(--white); border-radius: 28px;
+ padding: 14px 28px; font-size: 15px; font-weight: 500;
+ cursor: pointer; transition: background 0.2s;
+ text-decoration: none; display: inline-block;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+.hero-features {
+ display: grid; grid-template-columns: repeat(2, auto);
+ gap: 12px 40px;
+ justify-content: center;
+}
+.hero-feature { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.hero-feature span { color: var(--orange); font-weight: 600; }
+
+/* ── SECTION WRAPPER ── */
+.section { padding: 96px 24px; max-width: 1100px; margin: 0 auto; }
+.section-eyebrow {
+ font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+ color: var(--orange); text-transform: uppercase; margin-bottom: 14px;
+}
+.section-title {
+ font-family: 'Fraunces', Georgia, serif;
+ font-size: clamp(30px, 4vw, 48px);
+ font-weight: 300; line-height: 1.15;
+ color: var(--white); margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--orange); }
+.section-body { font-size: 16px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+
+/* ── PROBLEM ── */
+.problem-wrap { background: radial-gradient(ellipse at 15% 50%, rgba(245,166,35,0.06) 0%, transparent 50%), linear-gradient(180deg, #080f1e 0%, #0a1628 40%, #080f1e 100%); }
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
+.problem-card {
+ border-radius: 16px;
+ padding: 28px;
+ transition: transform 0.2s;
+}
+.problem-card:hover { transform: translateY(-3px); }
+.problem-card-icon { font-size: 28px; margin-bottom: 16px; }
+.problem-card h3 { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.problem-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* ── SOLUTION ── */
+.solution-wrap {
+ background: radial-gradient(ellipse at 85% 30%, rgba(245,166,35,0.07) 0%, transparent 45%), linear-gradient(180deg, #080f1e 0%, #0d1b2a 40%, #0a1420 70%, #080f1e 100%);
+}
+.solution-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 48px; }
+.solution-card {
+ background: linear-gradient(135deg, #111f35 0%, #0d1929 100%);
+ border: 1px solid var(--border);
+ border-radius: 14px;
+ padding: 24px;
+ transition: border-color 0.2s, transform 0.2s;
+}
+.solution-card:hover { border-color: rgba(43,127,212,0.4); transform: translateY(-2px); }
+.solution-card-label {
+ font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+ color: var(--orange); text-transform: uppercase; margin-bottom: 10px;
+}
+.solution-card h3 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.solution-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── HOW IT WORKS ── */
+.hiw-wrap { background: linear-gradient(180deg, #080f1e 0%, #060d1a 50%, #0a1628 100%); }
+.hiw-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; margin-top: 52px; position: relative; }
+.hiw-step { padding: 0 24px 0 0; position: relative; }
+.hiw-step:not(:last-child)::after {
+ content: '';
+ position: absolute; top: 24px; right: 0;
+ width: 1px; height: 60px;
+ background: linear-gradient(180deg, rgba(43,127,212,0.4), transparent);
+}
+.hiw-num {
+ width: 44px; height: 44px;
+ background: linear-gradient(135deg, rgba(43,127,212,0.2), rgba(43,127,212,0.05));
+ border: 1px solid rgba(43,127,212,0.4);
+ border-radius: 12px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 13px; font-weight: 700; color: var(--blue-light);
+ margin-bottom: 18px;
+ letter-spacing: 0.05em;
+}
+.hiw-step h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.hiw-step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── WHO WE SERVE ── */
+.serve-wrap {
+ background: radial-gradient(ellipse at 10% 70%, rgba(245,166,35,0.06) 0%, transparent 45%), linear-gradient(180deg, #0a1628 0%, #0d1b2a 40%, #060d1a 100%);
+}
+.serve-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 48px; }
+.serve-card {
+ border-radius: 14px;
+ padding: 24px;
+ transition: transform 0.2s;
+}
+.serve-card:hover { transform: translateY(-3px); }
+.serve-tag {
+ font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+ text-transform: uppercase; padding: 4px 10px;
+ border-radius: 10px; display: inline-block; margin-bottom: 14px;
+}
+.serve-tag-worker { background: rgba(43,127,212,0.15); color: var(--blue-light); }
+.serve-tag-employer { background: rgba(245,166,35,0.15); color: var(--orange); }
+.serve-card h3 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.serve-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.serve-employer {
+ grid-column: 1 / -1;
+ background: linear-gradient(135deg, rgba(245,166,35,0.1) 0%, rgba(245,166,35,0.03) 100%);
+ border: 1px solid rgba(245,166,35,0.2);
+ border-radius: 14px; padding: 28px;
+ display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+}
+.serve-employer h3 { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.serve-employer p { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 500px; }
+
+/* ── STATS ── */
+.stats-wrap {
+ background: linear-gradient(135deg, #060d1a 0%, #0f2040 30%, #1b3f6e 60%, #0d1a2e 80%, #060d1a 100%);
+ border-top: 1px solid var(--border);
+ border-bottom: 1px solid var(--border);
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.stat-item { padding: 48px 32px; text-align: center; border-right: none; }
+.stat-item:last-child { border-right: none; }
+.stat-num {
+ font-family: 'Fraunces', Georgia, serif;
+ font-size: clamp(32px,4vw,52px); font-weight: 600; line-height: 1;
+ background: linear-gradient(135deg, #f5a623 0%, #f7b84b 100%);
+ -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+ background-clip: text;
+ margin-bottom: 8px;
+}
+.stat-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ── FEATURES ── */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 48px; }
+.feature-card {
+ background: linear-gradient(135deg, #111f35 0%, #0d1929 100%);
+ border: 1px solid var(--border);
+ border-radius: 14px; padding: 26px;
+ transition: border-color 0.2s;
+}
+.feature-card:hover { border-color: rgba(43,127,212,0.4); }
+.feature-icon {
+ width: 40px; height: 40px;
+ background: linear-gradient(135deg, rgba(43,127,212,0.2), rgba(43,127,212,0.05));
+ border-radius: 10px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 18px; margin-bottom: 16px;
+}
+.feature-card h3 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── PARTNERS ── */
+.partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
+.partner-card {
+ background: linear-gradient(135deg, #111f35 0%, #0d1929 100%);
+ border: 1px solid var(--border);
+ border-radius: 14px; padding: 28px;
+}
+.partner-card h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+.partner-bullet { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 13px; color: var(--muted); }
+.partner-bullet::before { content: '→'; color: var(--orange); flex-shrink: 0; margin-top: 1px; }
+
+/* ── FAQ ── */
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 48px; }
+.faq-card {
+ background: linear-gradient(135deg, #111f35 0%, #0d1929 100%);
+ border: 1px solid var(--border);
+ border-radius: 14px; padding: 24px;
+}
+.faq-q { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.faq-a { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── WAITLIST ── */
+.waitlist-wrap {
+ background: radial-gradient(ellipse at 20% 80%, rgba(245,166,35,0.08) 0%, transparent 45%), linear-gradient(135deg, #080f1e 0%, #0d1a2e 50%, #060d1a 100%);
+ padding: 96px 24px;
+}
+.waitlist-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+.waitlist-inner .section-eyebrow { justify-content: center; display: flex; }
+.waitlist-card {
+ background: linear-gradient(135deg, #0f2040 0%, #091528 100%);
+ border: 1px solid rgba(43,127,212,0.3);
+ border-radius: 20px;
+ padding: 40px;
+ margin-top: 40px;
+ text-align: left;
+}
+.waitlist-card-title { font-size: 20px; font-weight: 600; color: var(--blue-light); margin-bottom: 6px; }
+.waitlist-card-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.toggle-group { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.toggle-btn {
+ padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 500;
+ border: 1px solid rgba(255,255,255,0.15); background: transparent;
+ color: var(--muted); cursor: pointer; transition: all 0.2s;
+}
+.toggle-btn.active {
+ background: linear-gradient(135deg, #2b7fd4, #1a5fa8);
+ border-color: transparent; color: var(--white);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label { font-size: 12px; font-weight: 500; color: var(--muted); }
+.form-field input, .form-field select {
+ background: rgba(255,255,255,0.06);
+ border: 1px solid rgba(255,255,255,0.12);
+ border-radius: 10px; padding: 12px 14px;
+ font-size: 14px; color: var(--white);
+ outline: none; transition: border-color 0.2s;
+ font-family: 'Inter', sans-serif;
+}
+.form-field input::placeholder { color: rgba(122,155,191,0.5); }
+.form-field input:focus, .form-field select:focus { border-color: rgba(43,127,212,0.6); }
+.form-field select option { background: #0d1b2a; }
+.form-full { grid-column: 1 / -1; }
+.btn-waitlist {
+ width: 100%;
+ background: linear-gradient(135deg, #2b7fd4 0%, #1a5fa8 100%);
+ color: var(--white); border: none; border-radius: 12px;
+ padding: 15px; font-size: 15px; font-weight: 600;
+ cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+ margin-top: 6px;
+ box-shadow: 0 4px 20px rgba(43,127,212,0.3);
+}
+.btn-waitlist:hover { opacity: 0.9; transform: translateY(-1px); }
+.form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 14px; }
+
+/* ── FOOTER ── */
+footer {
+ background: linear-gradient(180deg, #060d1a 0%, #040a15 100%);
+ border-top: 1px solid var(--border);
+ padding: 48px;
+ display: flex; justify-content: space-between; align-items: flex-start;
+ flex-wrap: wrap; gap: 24px;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.footer-logo-mark {
+ width: 28px; height: 28px;
+ background: linear-gradient(135deg, #f5a623, #f7b84b);
+ border-radius: 6px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 14px; font-weight: 800; color: #060d1a;
+}
+.footer-logo-text { font-size: 16px; font-weight: 700; color: var(--white); }
+.footer-tagline { font-size: 13px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-logo img { margin-left: 8px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:nth-child(odd) { border-right: none; }
+  .stat-item:last-child { border-bottom: none; }
+  .stat-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+ nav { padding: 14px 20px; }
+ .nav-links { display: none; }
+ .hero { padding: 100px 20px 60px; }
+ .hiw-steps { grid-template-columns: 1fr; gap: 32px; }
+ .hiw-step::after { display: none; }
+ .hiw-step { padding: 0; }
+ .form-grid { grid-template-columns: 1fr; }
+ .serve-employer { flex-direction: column; gap: 16px; }
+ .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+ .stat-item:last-child { border-bottom: none; }
+ footer { padding: 32px 20px; flex-direction: column; }
+ .waitlist-card { padding: 28px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+ * { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+ <a href="#" class="nav-logo" style="display:flex;align-items:center;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAEsCAMAAACrPbsrAAADAFBMVEXLoAeZpWLiWgQAWt/NXwbyZgHgowNjl5mdWAbtWwMYIia7kAkJUdoFjt8njthkZA8AJGocYwwCQbcAQL0bULjTsy0AKZ4aeqwRctgAqnEEmthvdHmgLgbmmg0BProAM8wBP+EVTk4So5ETjNhdLhVufIx7j3zKPQnkwQXowATa0SYBP70/f/8AqgAK378AwuAEwe9mmQBVqqpDk8m/f3+EimreIwDrNQH/f3/awAX///8AAAAAl/j5pgEAiPgAd/gApfj5mwEAaPj5tgL5eAAAWPL5aAD6xgMASeb5VwD5SgAARdIAOrAAO9T5gwD50gQAqv8Af/8A//8Bs/sAAP8AVf//qgAAQbv//wD/fwDXdwMAVasBU9gBqNQAPLgBfn7/VQAAqKsCfbwAp/D5OAABtfH/AAAAqOwFedIBqOkAp9oBqeQAv/8BePAAtOsAtO0CduUBd+wAqeIApsgAAH8Dhu4AMZ0BmtQAstcBteYBmbbQiAoDedwBtuOrqgP/PwDymAMAN80BR88AV9MBatIDd+gDh+kCmMl/fwABZdkHh9K5fAPqlAT/vwAChO0BlpapVQACOJMAN8YBRswAR88AVVUAfwAAP/8AR9IBl+sAv7/OyDACN3oANrUAOdICQ7UCR80AVesAZu8CduMHhdgAmfABs9zXagHRdwfuSALySQLtdQL/4gAALZgANcgAV+oAZuQFhuQAm+S9PwO/vQOsuFPTRAbWuAXilQXlpQPvqALzpwHjuQQAOMsCR60ARuIASucCUtIAaegGeMoBmeoFtMu1wUzaugTkSATqqATxwQIAPMYBRMwAVeMKZnAHZ8cCmeTdjQfXmQXrSQPpeQPphQTmmgTvmAPovATrvgLxuAIBO7UHVXsFW5UCUtIDapgKa7UAf5sEmNtJeLBXoqZ/AABxlo2JpnPKqTDqawLkegPhiwXxgwLuxAMAAFUCPrkASMcQVrAAWMUAVuYAaO0Afz8Ei7EAm24A/wA7OwAlW8gqZs9YWABJZaRPlrB/XxTQMswtAAABAHRSTlMf+l1ZKdFb/A6kBBOaZfoFCQNbl+LuEBj7BScGE6tpBf8GB6AF+/sbXZX7oAQDGCqmBQMmBK9djgIxAQD5+vr5+fr6+vn6+vr6+vr6+vr6+gMCAfoBAwP6AQJKBPovCQIDBwjR+swBsDGRS20Ez5OzcK9XGALO+y4vbhErT1UFBMmtVDArj5MYAvsvCYwErQgFEFJv0AMCBJCzBPsIK8ovMdPJWE3ORkUwr9Cw+/uTsGxvbwgI+zMwVm+t021pFa/VcJAZkxb6SWuN0SmtdQcVSk83lZKVcrKRrc1NBgnJCBAJT/z5Avv7+49tVNG0A5EULheSrgQOBgEE+/sF+/sIufJx6QAAHxJJREFUeNrtnQdgHMW5xw8bg03ohPTkpb2X9/J6L3NdOt8ZFd/u7cmnnHRn6ZBc1SwZbAcD7jYYbDB2DG5gYzAQOoY0euCF0JKQ8hJCSQhJIKT3/mZ2r8zuzuzO7s4WyfcZZOkka3d+9//azOxuCDSNu4WaCJpQm1CbUJvWhNqE2oTatCbUqQVVLIt9WWR9gihOJSa1gfXBgUneQS1nl2bVHMXs0muESY9TEpcuzQLtwLJl16GKNZzb+np7FyPr7V3VV/3eNeXJS1So8eyrDqy3t7fv18pLWg1xhVolOr54yfDIQC5et4GRkSWrV8g/sXRSCra8VP7YuxKNC7OBkeGVi8dVYuIMVURv5WOrF1Xi8RxGVDb5DIZX99Z+bFKZzKt3ZZWnblxoYAgsa+oIWTvyqmUL9DzVYFcirpMJq5SViQ7kjAc2shrGOKGPK1SEtHdRnHpc7PgjN0wmrPBET7phxIBofWADwyvY3JARKtL94hFzpLXDr/57IPZNBqR9IigjkTIOTNZLHxeo6N2Bfm/BINZqpAq8568eyFkYF4wC5gMLsTlIr5UjK4cfWaEIPMhFFAA3WB1YTtGLQ6hQpuOL4jYsN9wHlgaZ6VKwbThnmSn8b3jcWKymUGEAWR23Z7mBFSC4DSx0fev+VyNrLFYzqP1g26Jc3K7lVso+FshqH6aJuP2BDa8y8MKQGdPeStyB5f5pWzCLKwH8cjjnZGADi+kZI2QSdZbFnVluYDyIVEXQN5JzOLKVYKlkA+pSsITl14fNAms2eEwfc8pUpkrJGCHDUuoUJqZh4++jdBU03//VgGOmBlRDjnVqChVpNVDZShRXDcR5WG4YZCVLUBmYhtW+H6ZS7QtSZQXPZSQX50V1qRWo15jkqLBs8t/KBwPBUo7tW82/hJFpmClbsUMVQa+Jx1epyv81jPIPlgSHahYsNhoXNoTq+AzDW46UhilQy+J4xUyltaOFNRYnnAZsQQISAAzVUtOKdlhGVHtFgRFqFixgYCoLVgeVeCq5cSEYyarvmQptUA2ohkPRThztyrJBzRokqTC74f9sOBhS7aeMTDlbKtRw/UdIYTXLAlUQxw0ObM3q/3oFCMCsdVnoq5AjqXWZNAKAdmQhslAXGURRm1AH3h6Aukqkj8w21dwIC9Q+XSxXBVGbZ0FwE+8DqmZkYetGlmrWFKqgy1JhJ1Y/9mOi37lKLFecj0pPdcEuwQyqkVAdncWw31LF8m/YuWGAFqtHFiLFnQVcmTakeoO/VAVxU9wdqBqphkyqY7yid3z0gWdEf4W6iB9Ute7UUTVEaI1Jh+YSVqFUxUBkqXCYr1Lji0yggm9VuB4bP4WBX4p+CnUB53Fhky7juFxCBvMNYd5Qw3Efy6osWBY36kSdyWUZuMYAaqM8duHQqKzyaQdrWVhVqc1RukB1Aa4WvfvvrFRnn104dNi/sgplqbA7hkZW2QYkKlShFs1dObQ8/+hLWEU1Tdg9qOH4+diSUYgYeVx7Q+PxEX+goizlKtRloJ8KFSuorP7uKDQGqfrSAaD0Gw67RzWsKqpCBu2UBZh1Y5DqLu+lKonfqsTjLkJFmUo0SFSVaunFGgSiGmNwlKz3Qr3LfDTR6nBsYQ0ffqmRqUJaoW6rhC1BjerN8ODheGWT4LFWBZEhS8knHg1H7cp1U0OqOqib4mErATVKtsY7TwDreVnFkqUY/MzYLgFlClQBnG9hdSFKNyNHiq/wdmI1C74dZx9K2CbaSxo1VUhfpjoGahYJYFmV9TRLoZBmbSw2YusXGoMK2ayRo6xGiqs5TxcB0QKqjfDFD6oA3sGSoaIWjFQCDOz0LlWVxfG45XHYyFcmUHkiJVBVNqxcE4Cmn0q0cdrsAfb8hvdpoJbl7M+VKVGqlV97JdU+OfWS6yfTM7dSEdCzvwi+VeGrUyLVcHyJV7kqu2sBeQgOg5iFOhWAXZU4X6ZhYgTIjXtTVmX1WSpqz8xSVz8dqmhcJ0ejtk9JI1VvOgBRWMWLqYlgDxv0/vIsFW+i+rOJe9QB6LJU1KFRa63PGsxSoQ3UYReg6qW6wAOpCtImrkgN4utdBpPU9OrfwlFjMZbKyoNLgbLgav5MG6OJkrtUHVQJbKPNPLLxlJnGWCKA+1LNgi+4xFQH9XA/MFyiXmBTqjGVMRRWbk+sSsKvDrvHVD2ijYarqUtpQZUZJzPVistXAmXBXa4QVbpYfETR8CnYEhVp3X/cKtQYzcyiqrtllSCeX5WTwYnjA7BYteKtbLTfcIcKxf+jNpjqzlPXAbi6Y7WWpSycdJSdbjiKz8FuNNlLlSXl/6hNqMZcXZVqFpxPOfOYubE2AzW7RHWhKHF/qr5TdQCVHgRgsdrr3lWr2V1Xk848xmTKzzEHg8uByf5UZT+FOdOqv0Stvu0elVUoS0VtIrUgWMUWmu6kBsLOCitU6+emiatuba0QxE2E047FLFNlQasRKhGqTqpRh1BV56WGWtlm7xal5kL9bNgxUlbBLgR5U6hA2FXhDBU/MTXVJXiBxzVL8UJqCvVyDVPaxWmqnUdRvlCjqrKq0ufG1orsb67mx9QM60JJYICKalXeUGkRIL7SheWqLPh2mPFsk9CcYR1luzYVVlX4wg4fqGSqaLs8983VorCKiWkSN7tQl7+ku+VHiGFylw9Tcg2gu7KDz0q/KkuRWWqYmoE1yFJFwAYV9s1xXgWVcbKSOwC+UVXAspR81FNP/N5xj+/Zsyc9d+7cPXseP3rciX86lYDUkCuN6Ub2O1OoFsx4MaVhXcAb6uZGljr1O8ftmStbumrKV3M//PiJJyZTKUtUSWT7hTIzVHzFjCNUDCtGdTHXANDIUqee+HiaZArWj3/8w0f/ROJK7wP0IA6RTj3EsAOJJ1MS1Xjl/cJvOE5Nn7Fc/v1/Opo2QFrlOvco1KuF2KoBMUaUQ4h+bo1tFe5Qdams6genoN/+nT1pU6YK2D3f1cmVNd/GniXOXYYMvGhx3Jn/006PUAGMc1sDEMAlYQVpCxtUiHXu936viwIMVGOEEtUEKtYB2GLaODfdSWqoyruAeEHND34geupRKlIiVYRVHwTMqY5RckHIsDKJk6HGYsxQkzHSOeqp8uoAsuD66HcgUmhUqGSs32UWax3CespscIhpe4ddnVJPURcBOHUA4juLy4+TkdKhksU6d+7Rt0GsKQaqNQajtHM2giqK1bKKB1P1OeorgF4um6v/BXzg8SpTQ6oErPCl77IlrCqCMfItKU2g1jsA6+6fZKTKuQN4Z+FfG0zN1EoAexQqFQdrCHU9dSkoZFzyVS9BsAo1mbROlUcHUADvVjG1KFf4wispZCzZapR+viGTsL84HmWWarL2VzJpnWq8UnYs1S7wv1qmLWkrWJUQwER16IWsZA9qraxi93/K9A+Jq5aqY6luLlz4+RaipVnBwq++p6FKwUqYnGKF2kdePLfu+CSsmgDgeA2gC/xfusUGVZwr/Py4FINYR43W1kOmdd+isJVlyaR9qk6Xqy4E99GYmlJVuFY/Y6A69EJesg8V3aDSQkeVTDrQanyVo11AXZs/T4fKwrXO15zqeu1anyWoqKyy0vsnk/a1CjsA0Unm/4whU55UR43DvylUSVhVYZdqMumIaq/UZz9LhVpMjZnqX2WMqB7cmZUcQUVllQtQa6epKgGc7AIq0LOUDa5zX9FQ1Ti/cZhieMiX+Jurw3wTFZ2q7WYVlqgtzJZOp03h/j5DleojhgGVDSphtwfjqi8TVo1U7UXVQuFN32ixaMZQz87QytWDe7OSY6jEfUn8oKqp2rwOoAD+Jt1iw4ySFVmqyeR60+2fLFDRDjru+V9Ltdasvl205fz32WJqCPYVklaTsTvMq2mmp1HKez09omrrSuCuXV+3D5XG9WxtXSXbQbOAygpVFDYddsX/k1hhVSurbFwJfI9piWoDa0taV1chW8+w95vtYbRZsCzsQlVFlKr1NYBC4T6nTMlq/Z2e6h2A3xN+hfLhsCtSJVDttSrVLvB1DlB1YFvSx+mg/oLB+ZmhEssq61DRIpDOozQBwHKzWgAnGDCNwD8WyVbZws9+rw2r6ySBH1QL272NkKpMRVXdAVihWugOpfUkqzxlQ19GbAlXK9XpTEJlhooun9PNAVpgmtJDpVG12Kxepu9PFZTVv6tmLx78TlVWPcJ4gRL7o+iRVPVUabs/GZSKna4mAFhZA7gQ3EfweKK1yGytIE7/JS7Vgw8IZb5Qy8KmMEmrURax1nSqoquNq7hU2f2/67RvEGRKJmpZuenvZ7BzXcd6JR0zVNhH3BWOMm0BImpU/runZ968ee11mzevraengbVBlb1Z1ZWoEUaz5P/yLounwccAb6iS+OvDRKqmTBWiPfPaz0PWrjVIVlMCxCuPMW5YuxD8tz2m9WjA5v9wCNftzUvcoSqbaRkWrEjRtK39vFtv1fNsgO3ZUqVaa1bZ9lZ2naFeQonYMJb8D20d+2W0FqDSrvU2ZJqSNXrerecZEZVDAtQrJtW3C3acP2LPGIJq6mG2asoyVGJZZarUnnZDogrUeW1tbfDDFmtRtaBdQuEPtaVHofpz5oBqEWrt1s4muUqFFPp9ezsLUtnaIdbqPmCWbcAF8HUeTJVKi4L1zTLU664QJJegimgR0HxnNYb0vFstIFVMxsp0dVUX7vyRiAOmBoL9Y0YJqEXgElRYVi2Lh01DAOb47eZM23QWk6mabgLYXAilOYjUpBiQoT4NSsA1qEA8o8KwY11hOu9WM89vbyNbTzjOMAVYwCanIlyMEAPSf4RMb7fG1CpU1Q1WqFhRLd/TbhepLFZ0IaBxVC2Av+YpVEoESMOYai2gWoequRcQGSpi2nYeO9Gr9FA7tsRzxlIt4Fv8IjxNTbUnlbrWUkC1AVVQ3+GZSDUZS84z4dk+781nnXXm8wcOlEpXXLH3LVc8cODA2h27n8Lw9sTj7zC6uALbPBHhbDhTWKc+bKWasgUVthVL6PcCqTE1BDrvzT9+z74ryL+9dGDH7qvaelIyVSOpYvt7IxH3qMKO6uRX88BtqKLYVzGGGttCyfTtKNM/dWY16BdLpWKxPCHJNiEU86VSNd0/sBaBhVT/kbq1Ct/fG3GT6isPvVOSXIeqfwqRFuoWIlCZ6N8+fzr6FflSUaJthyspujiw48W21NXUdhvfPBFxker3Uz+1GlBtQSXct05187wtpGoUIm0/63nk88X8hNkBJvIy2J/++MWFFKr45n43maZPnG6xmrILlXDfWuxyzS2UAv/H+xDRIqsrlRHXvT8FEjnz//Pn3YVaxXr2yeDvgCdQSY8jqDON6SegUNH0HihSoWgtOAl5lm2TEReVmv536d8kj6DWpgBIVPGeXu7rkUrP3Avj6IT1A1FShGpzf8RFqmeXCv8DPIJKfLqiAnUeoac/C6q0xPM2aaplKTehhsB/Ac+gAnFXRftsVXl+uUc/S/IUjKV5rneeK6gnp9yDGoI+4SHULOHpqpDpFlSLquadrjqTN1IvnF+BegK4DHgJFXuqO3Zf5qhudnQHTPgTgK91gR+m3WaKoH7SNlO7UNFDnjRUkfOrkV51ANionC3snHKT6RPgHuAxVFisLslpqL5NM5e3e6+dwtmUach130dQn4Ae4TlUSdw2oNGqZhJ/rQsyRVB/mPaG6aD3UNEUQE5FdQsu1Ax0/bwLd5vtasxMR1yE+hn45gEfoEKqI6oAgKs089QDLri+as+0mzo9wYnvO4IqSr2YVONv68CY7nbF9XHnd5fpZcAnqFCqww2q8R5VJSVMuMG0MTnlItNvhJwydQK1LK4aqDONqpjmXbl59+bCPSZMEwnHTJ/4A7gU+AcVllXLcjWoWxq+v9bymg6j3VNbk3ZPppFPAtAN/ISK56oejOlfEGXWvX1+F2bzVV/BL5UX5je+VNn27dtDZs7vWKfI9QuDwG+oK2pSVVZAoZF02t1d4KJU84DqCGvLp97kOJw6hwoDQDVXRRWkbakdOp0W5BB10qVHjnzEht2I/ocfbjz+xht/aNX5LUr3k8DutBRXqGWhT4EaU2Sa2q3V6SCq+I6c8O43Ok2stbW1+hfFZiesZv5EAlFNsKFtiXwJdBVAAKCiO6wgqrkkYppKnQw+ps778wGY+fobanStWpjGNrtmTGV/QgM1wRgTWj4V4uP6HKACceeAkqcQ0+seELVM//x6q6lGTRRatQhdqAmywydqVNlcvwsEBWqfkqsg1JRu09FgN/jIG52tplSNJFvXaSddqDRwivOzyPTTMOt3g8BArfZVSKfaTUeDBfAVHJUdqLN1zt+ij5s1cAnbWZ+j63OBKoibIFS02/jFnapGCr71KqatRjzJTBtI59CcH4ubCRLWBEOi4ur6XKAquSql23E4OF/DtFWL0TxXNZi2mjDFgit6IaGpAAxd/wRQ2AwCBlUU3z+Qg+7/sHqyrwt8WUuLRtUMKYTakqYzbSg1gb3AWKqigr8AQNCgytPVybYXi6rtxvPB6xisTp37y6/VPzFj2kkWaqJh+OcJDGX9s4RHrs8JKqwARmJt6ou3ugtHdKxwhbbWClaG+hRlqTQ1RxmZedb/Eihw1ykfqGXxH4auekFSC/XLRKiteE7qZKr5oVATaROdmmCl8OXW67sBFSao6Q+rslQ3OEJh1VmHatJMqYRql6mx77vi+tyg6i7PJ2QpEl8mok6EahQBXHJ9flA1NghmzrAFk8SULNQEq9GYQtfvBmASQd1O9X4mm20m1AQ7UxrWr7rl+q5B7Qav84NKEmoiYYdqAnf97gKYXFBhSOUnVKVGjfCAWvvsU5e6k/VdVuotvGQKmymd8ydsMW20BF/lNcM/WaHqhZpIWKdaXQFIVF2/qwCOKah6oaY1zp+wZ7WY+oTLru9iTL2FD9La9BQfqIjqJ9x2fReV+mU+vl+tpxwTrSn10x913fVdhDqNj07nzObFVKb6xGnOt/T4BnUzOJ4DUfSnk5tQ4Z9PAPeaKPehWs9UswkqRRZxmvlr6T8SufijjnZH+w+1C9zoDGmVKfJ+Ls4fiWw9zSOZugYVnv8MB0RrTM/pTPNyfs9c31Wox9ujiTOdM4dXQP1ayDPXdxEqDACvOUbKzftdnZLyEOpg1x9maSjWPxgSxaBC7+eANHLxF7luP/ERKigUts9gxkgW6jnYneYcub63SF2ECkey/RaFpl2mc1omoeu7CxVS/cNrVlXaQAqhtrY4ZYqK0+4CmEJQweZCtV21gxSFVIdKjUS+9ibPXd9tqGg/1TTbTPGQarM4/aoXU1JeQ5Xr1RmtNpnOccj0Ym+mpLyHiqje0moP6uwWRxF160xfXN8LqGjX/2umVOdoiapCqt2+9EIwVaGi7DuNWZ4NpOeck3DAFGX9QTB1oYLBi8CN7DQbUB1E1K1/9mY22j+oAFwEjp9lmekc24un3k5J+QUVBtYPvsZO1BlU6my0OMWgogA3zQJUyPSc2TaFuvU0cl9aBGDv1IIq9wGsMpWpnttqL+t/keL6/eDRC14SpxZUObDOYEZqE2rka5SsL2bBJcsXAmGqQYVUZ85iC6cy1E47ri9RXf+U6JhXTL2ECrYDGAIYmdqAirJ+geL6b90YjS4E+SkIVQ6sbEhtQJULftJRJeT6UQ+F6i1UJbAyMbUOdetvya4PUX4B3Yd0oTt3dQoAVHA3eNcsFqYQqtWsT3b9LChvREzHPHN+76GiCZZZ2jk+x1Cprg91Cl0fPeduoVSculDRXQCmacQJucIPKqbWoG49iez6ZQFcr9wof4OHQvUBKgqs984gaFNt57Y6L/ghxzurT8l4VBSmNlQYWI+fxQ0qcv3LBsmu33+5wjQ6avn59pMBqqAJrBOz5GDKASp0feI0n1QNp8iGXhalKQhVQ3VwEHxuDimUNqDOZmNKc314vAtqz3LyWKjeQBXBW7V99+BFYNoMeYaPptQ5TK5/hDLD3w9e2lh/ktvQNwVpCkJ9dPn1ICtpAuuHbjJyfxaoW3dStp9grg/tAm+F6pH7Z8HG6J1A8yA0WLE+R6d67jnmWf8HlIK/LFYrKcU8bFC9hFoEC6PRjYOawW3uBp8zgAoL1U5bBT+U5Qb8kaMeNqieJipx8/Jo9Oq3atxwcD6492ZaooLVf2enncW9RiWl2AaPnd8zqAI4JRyNHt6kdcSLwExaYIU1FR0qfXFPVLs+tGeF8tSEKoKX0azG8vO1VOeD3z5HranoQqWu6xcbTVTVRj0Xqmd1KkpVyK7XUn11EEyjpX8q1K0fpGb9X12uZgrLKTBVoQooVSG7EwiiPrDSMhXZfgCo09ELl6uZxqZ7OZPidUdVk2p0I9AH1rtvogRVElLqfvOyzvVROeU9Uw/bVKkq1ejl/dootx2QaisUVAmp6is/omR9eTpawzS2XhKmMFQoz8urD1dc3q/VKppjJZX/nXqqtIIfVVJq10ePxH7E+yzlKdQ8jKqxKlX9CvxF+opVqVTVVNGWHuJvl+CvH1ITReZ9OeXxfGpNqgjt9QSq77qJ6P841a0zqQU/Fk6TdfMjS3kLNQsuQTyVybg7dY8C6dYF1qr/N9pVWtYH/eCZeiXVQJr8hT9MPZ35F0Aj6MEiQLvAgXYFqEOA3FR11tRKvbYcVVJDBKbJ9ccA1P7GtLG8FKeb59DWVqj+r1N990zqgim4IEZA6ptQvV2jEnbi+RmWVv1A27SqQ8C5jTvZniBXXsS36n0biEyTPxPLxwDULLgeL3oIRQCsrT70nKqrUmT6xkdpt5AUsKyvZnqHL+WU51CBUB6KqWc6daU5FOu9N9WLqmoA+MqlFNcX8xTXTyYP+uX8XkPNNhDUFjp0y5yvIqzP3VwPq62ttxyhuT7ENkpGmkyuA8KxARWOcyymmZiTdIGvG6ny3s89d9PNN99803/+x7sA7aJd2ESN0Zg+4pvzew5VJ9XYhjMIiuq+CP+K0pfiTZSOKcxSwrECFQIc0s4jPUPUVPfd8wdlvHe/Sv5NRanu+lqmqRTMUr5FVO+hZsEh7UTS2Mt2ol8/+O0GGtJU8uDOvHTsQAXCN4cwEsrkvI0rHLJ119cRRbbO6wVUf6FWo2qdQm23gyVhlfMNwZOY/txP5/dj159SAOAk5CLAyhxdllxJpWp2XVGQji2oqFzXREF5cZ7dYbOgfwNVpMim+ytUP/an5qFU9VTHnmUsLGGpdMEQXaXQbveZqR9QYbdOgBobWs+UrhpNFAUpylLCMQcVKlIn1WR1JkAyf0eKYzFDnaae9luovkAtSusJLVASpSuTNkgQiZWUiqnfWconqFBJj5CoJmMbfmkkVrTaPEotTQPj/D5BFchShVTH1gNqvoKvLxwjd1CY/dytZ7YHHSrk80iSTDW24WX4bf11+WI/AC+Mxkx1mvqZMHGMQhWkZ5MUiw2NPgN/IIuHgXIWpp73HRoyZZoJQJbyDSoc+R1JA6yPyuQFob+/XxDkcPDo6FDM1PUzqdt3BoCpX1AlsVifpUsRyquxC9Z/s/HTjx4ao05I4UwzQchS/kEF/bJU6zwIXIfGNoweOnRodMMYdSY6pRXq9CA4v39QJaF4EINCzFkaS5rINANL1Lx0LEMFJSjVlAFVBNEIaVKLFEK9NhDO7yNUIOw9qAZDLrFo6UyHNJM6Wf3g5mMRah5M13hw0oLpmWYeKgWgRPUZKnTV27WVux2kNaaZtcHIUv5CzYN1KTtUUyki0wcDw9RPqKColyoDVjLSTOYn4kQTKlmqplgpOg2Q8/sLlRRVTbCmaEwD5Pw+Qy2SpUrlmqIyzQSlRPUfKlTX7SlmrCkDpjuCJFSfoQrSOjQNwoI1ZcT0IRCM/jQQUKG+Tq62mHRLUl7P4M5fBE2oNZuQinU4KUuGIc3sDpTz+w4V0ng6ZQcqzhT2p1ITKj4FKD5wXca6VnGmgSpRAwEVlMD0lGWqGNG2wDl/AKBKUukhjJFlmWYe+knAnD8AUKHM1qopWZFpW1vwnD8IUGE19KAVqjhRyPTB4DENBtRrMxlWrGqZtmUyP5EmmlCJAeDBjN7Mgqki1LVBWUIJGlRBujaTMcWq+WZwnT8YUCGY3VVIJLIk3m3VH38ySJNTwYIqSKU6JgZrq1lmRxCdPyBQoVR3IFQdTFgbTPcH0vmDAlUSSld1IGNQa1sDajCdPyhQ5Q6AiWoDaUfm/oAKNShQgfCj/W01qHSsGNKOzFMTAWUaGKh58KQi1Y42OlecaUfHk0BqQjWjuiaDQ9VzVSMNrvMHCOqEVOrArI1ite+/d00wq6lgQYW6u7/DDCv27VIAe/7gQQX5H63pUGPtUEpX5TMV0vdeGVznDxRUATzZwWiZNUFmGiSooAiuZIS6vyRITahsVgK3sUHdF9BWKohQQf6kNSxMAx1QAwdVkkr7WZiWQBOqhWoVvGXNpGcaNKiw87xizWRnGjiokOrpRtlq/77gMw0eVDRLQq+s1rxlEjANIFTUBZTIYt1/JQh2LRVgqKhg2qePrPvvPwkEuuYPNlR0F0+w736c6/7brjwdBGtr72SDqtyEBpSev/+2NWvW3HbblftOVwTchOqwZC2pXD1flEATKg+5FkulvFDMl0rS5CEadKiT1ZpQm1CbUJtQm9aE2oTahNo0x/b/2m63Oxn5G6IAAAAASUVORK5CYII=" alt="VeriWrk" style="height:30px;width:auto;image-rendering:-webkit-optimize-contrast;"><span class="nav-logo-text">veriwrk</span></a>
+ <div class="nav-links">
+  <a href="#how-it-works">How it works</a>
+  <a href="employer.html" style="white-space:nowrap;">Verify a worker</a>
+  <a href="profile.html">Worker profile</a>
+  <a href="calculator.html">ROI calculator</a>
+    <a href="veriops.html">VeriOps</a>
+  <a href="dashboard.html">Live signups</a>
+    <a href="#faq">FAQ</a>
+ </div>
+ <a href="#waitlist" class="nav-cta">Join waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero grad-hero">
+ <div class="hero-pill">
+  <div class="hero-pill-dot"></div>
+  Now accepting early access applications · Nigeria
+ </div>
+ <h1>Your work is real.<br><em>Now make it verifiable.</em></h1>
+ <p class="hero-sub">VeriWrk gives Nigeria's workers a trusted digital identity; so your skills, experience, and reputation can finally speak for themselves.</p>
+ <p class="hero-body">For too long, millions of hardworking Nigerians have been overlooked because they couldn't prove what they're capable of. We're changing that, one verified profile at a time.</p>
+ <div class="hero-btns">
+  <a href="#waitlist" class="btn-primary">Get early access</a>
+  <a href="#how-it-works" class="btn-ghost">See how it works</a>
+ </div>
+ <div class="hero-features">
+  <div class="hero-feature"><span>✓</span> Identity verified</div>
+  <div class="hero-feature"><span>✓</span> Skills verified</div>
+  <div class="hero-feature"><span>✓</span> Employer ready profiles</div>
+  <div class="hero-feature"><span>✓</span> Built for Nigeria</div>
+ </div>
+</section>
+
+
+
+<!-- PROBLEM -->
+<div class="problem-wrap">
+ <div class="section">
+  <p class="section-eyebrow">The problem</p>
+  <h2 class="section-title">Millions of skilled workers.<br><em>No way to prove it.</em></h2>
+  <p class="section-body">Nigeria's informal economy powers over 80% of the country's workforce. But without formal records, most workers are inaccessible to the employers who need them most.</p>
+  <div class="problem-grid">
+   <div class="problem-card grad-blue">
+    <div class="problem-card-icon">🔍</div>
+    <h3>Workers can't prove their worth</h3>
+    <p>You've built real skills over years of work. But without papers, certificates, or a formal employer history, it's nearly impossible to convince anyone; even when you're the right person for the job.</p>
+   </div>
+   <div class="problem-card grad-orange">
+    <div class="problem-card-icon">⚠️</div>
+    <h3>Employers can't trust what they can't verify</h3>
+    <p>Hiring from the informal sector is a leap of faith. Without verified backgrounds or credentials, employers take on real risk, and many simply don't bother.</p>
+   </div>
+   <div class="problem-card" style="background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.08);">
+    <div class="problem-card-icon">🔒</div>
+    <h3>Talent stays locked out</h3>
+    <p>Good people miss good opportunities. Businesses miss great talent. And Nigeria's economy loses out on billions in untapped potential.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- SOLUTION -->
+<div class="solution-wrap">
+ <div class="section">
+  <p class="section-eyebrow">Our solution</p>
+  <h2 class="section-title">The trust layer Nigeria's<br>workforce has always needed.</h2>
+  <p class="section-body">VeriWrk is a workforce verification and employment platform built from the ground up for Nigeria. We give workers a verified digital profile they own and control, and give employers a reliable way to find, vet, and hire trusted talent.</p>
+  <p style="font-size:16px;color:var(--muted);margin-top:12px;max-width:540px;line-height:1.7;">We're not just a jobs board. We're building the infrastructure that connects people to opportunity with dignity; turning informal experience into formal credibility. Our AI powered operations module, VeriOps, gives businesses real time visibility into their verified workforce; from compliance dashboards to anomaly detection; so employers don't just hire with confidence, they manage with it.</p>
+  <div class="solution-grid" style="margin-top:40px;">
+   <div class="solution-card">
+    <div class="solution-card-label">Identity</div>
+    <h3>Verified identity</h3>
+    <p>Government-grade ID checks so everyone knows exactly who they're dealing with.</p>
+   </div>
+   <div class="solution-card">
+    <div class="solution-card-label">Skills</div>
+    <h3>Verified skills</h3>
+    <p>Practical assessments and peer references that validate what you can actually do.</p>
+   </div>
+   <div class="solution-card">
+    <div class="solution-card-label">Portability</div>
+    <h3>Portable profiles</h3>
+    <p>A digital work identity that travels with you across jobs, cities, and industries.</p>
+   </div>
+   <div class="solution-card">
+    <div class="solution-card-label">Matching</div>
+    <h3>Smarter matching</h3>
+    <p>We connect the right person to the right role based on verified data, not guesswork.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- HOW IT WORKS -->
+<div class="hiw-wrap" id="how-it-works">
+ <div class="section">
+  <p class="section-eyebrow">How it works</p>
+  <h2 class="section-title">From unverified to hired<br>in four steps.</h2>
+  <p class="section-body">Getting verified on VeriWrk is straightforward. We've designed the process to work for everyone. It works whether you have a smartphone or are using a shared device at a community centre.</p>
+  <div class="hiw-steps">
+   <div class="hiw-step">
+    <div class="hiw-num">01</div>
+    <h3>Verify your identity</h3>
+    <p>We confirm who you are using your BVN, NIN, or valid government-issued ID. Secure, private and completed in minutes.</p>
+   </div>
+   <div class="hiw-step">
+    <div class="hiw-num">02</div>
+    <h3>Verify your skills</h3>
+    <p>Complete short assessments, upload work samples, or provide references. We validate what you know and what you can do.</p>
+   </div>
+   <div class="hiw-step">
+    <div class="hiw-num">03</div>
+    <h3>Build your profile</h3>
+    <p>Your verified identity and skills become a professional profile; a digital work passport that's entirely yours.</p>
+   </div>
+   <div class="hiw-step">
+    <div class="hiw-num">04</div>
+    <h3>Get matched to work</h3>
+    <p>Employers search verified candidates directly. When there's a match, you'll hear about it. No middlemen, no guesswork.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- WHO WE SERVE -->
+<div class="serve-wrap" id="employers">
+ <div class="section">
+  <p class="section-eyebrow">Who we serve</p>
+  <h2 class="section-title">Built for everyone who works.<br><em>And everyone who hires.</em></h2>
+  <p class="section-body">VeriWrk is designed for the full spectrum of Nigeria's workforce. Whether you're just starting out or hiring at scale, there's a place for you here.</p>
+  <div class="serve-grid">
+   <div class="serve-card grad-blue">
+    <span class="serve-tag serve-tag-worker">For workers</span>
+    <h3>Youth and early career professionals</h3>
+    <p>No formal employment history? No problem. VeriWrk helps you build credibility from scratch; turning potential into a profile employers can trust.</p>
+   </div>
+   <div class="serve-card grad-blue">
+    <span class="serve-tag serve-tag-worker">For workers</span>
+    <h3>Skilled tradespeople and artisans</h3>
+    <p>You've spent years perfecting your trade. VeriWrk gives you a verified record of that expertise; so clients and employers can see what you're really worth.</p>
+   </div>
+   <div class="serve-card grad-blue">
+    <span class="serve-tag serve-tag-worker">For workers</span>
+    <h3>Domestic and service workers</h3>
+    <p>Build a trusted reputation that follows you. Verified references, a clean record, and a professional profile; because your work deserves to be taken seriously.</p>
+   </div>
+   <div class="serve-card grad-blue">
+    <span class="serve-tag serve-tag-worker">For workers</span>
+    <h3>Retirees and veterans</h3>
+    <p>Decades of experience shouldn't go unrecognised. We help you translate a long career into a modern, verifiable profile that opens new doors.</p>
+   </div>
+   <div class="serve-employer">
+    <div>
+     <span class="serve-tag serve-tag-employer">For employers</span>
+     <h3>Employers and hiring managers</h3>
+     <p>Stop hiring on faith. Access a searchable pool of pre verified candidates; every profile backed by identity checks, skill assessments, and references you can trust.</p>
+    </div>
+    <div style="display:flex;gap:32px;flex-wrap:wrap;margin-top:8px;">
+     <div style="font-size:13px;color:var(--muted);">✓ &nbsp;Priority candidate access</div>
+     <div style="font-size:13px;color:var(--muted);">✓ &nbsp;Bulk verification tools</div>
+     <div style="font-size:13px;color:var(--muted);">✓ &nbsp;Dedicated account support</div>
+     <div style="font-size:13px;color:var(--muted);">✓ &nbsp;Enterprise compliance dashboards</div>
+     <div style="font-size:13px;color:var(--orange);font-weight:500;">✓ &nbsp;VeriOps AI workforce management</div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- STATS -->
+<div class="stats-wrap">
+ <div style="max-width:1100px;margin:0 auto;">
+  <div class="stats-grid">
+   <div class="stat-item">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">of Nigeria's workforce operates informally. One of the highest rates on the continent</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num">90M+</div>
+    <div class="stat-label">working age Nigerians, many of them skilled, experienced, and ready to work</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num">$477B</div>
+    <div class="stat-label">Nigeria's GDP. Much of it built on labour that has never been formally verified</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num">35M</div>
+    <div class="stat-label">Nigerians unemployed or informally employed and underserved by existing platforms</div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- FEATURES -->
+<div class="grad-section">
+ <div class="section">
+  <p class="section-eyebrow">Platform features</p>
+  <h2 class="section-title">Everything you need to verify,<br>hire, and grow.</h2>
+  <div class="features-grid">
+   <div class="feature-card">
+    <div class="feature-icon">🪪</div>
+    <h3>Identity verification</h3>
+    <p>BVN and NIN-integrated checks confirm who every worker is; quickly, securely and with full consent.</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">✅</div>
+    <h3>Skills verification</h3>
+    <p>Practical assessments and verified references give employers a clear, honest picture of what a candidate can do.</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">📋</div>
+    <h3>Workforce profiles</h3>
+    <p>Workers own their profile. It's portable, updateable, and designed to grow with them throughout their career.</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">🔍</div>
+    <h3>Employer talent search</h3>
+    <p>Search, filter, and shortlist verified candidates by role, location, skills, and availability; all in one place.</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">⚡</div>
+    <h3>Smart job matching</h3>
+    <p>Our matching engine surfaces the right candidates for each role; reducing time to hire and improving outcomes for everyone.</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">🔒</div>
+    <h3>Privacy and data control</h3>
+    <p>Workers decide what to share and with whom. VeriWrk never sells your data or shares it without your consent.</p>
+   </div>
+   <div class="feature-card" style="border-color:rgba(245,166,35,0.3);background:linear-gradient(135deg,rgba(245,166,35,0.07) 0%,rgba(13,25,41,1) 100%);">
+    <div class="feature-icon" style="background:linear-gradient(135deg,rgba(245,166,35,0.2),rgba(245,166,35,0.05));">🤖</div>
+    <h3>VeriOps — AI powered operations</h3>
+    <p>Our AI operations module gives employers real time workforce visibility, predictive compliance alerts, and anomaly detection; built on top of the same verified trust engine.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- PARTNERS -->
+<div class="problem-wrap">
+ <div class="section">
+  <p class="section-eyebrow">Partners and investors</p>
+  <h2 class="section-title">Help us build the future<br><em>of work in Nigeria.</em></h2>
+  <p class="section-body">VeriWrk is pre-launch and actively seeking partnerships with organisations who share our belief that every worker deserves a fair chance.</p>
+  <div class="partners-grid">
+   <div class="partner-card">
+    <h3>NGOs and civil society</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Work with us to reach underserved communities, support digital literacy, and extend VeriWrk's impact to those who need it most.</p>
+    <div class="partner-bullet">Co-designed onboarding programmes</div>
+    <div class="partner-bullet">Shared anonymised data insights</div>
+    <div class="partner-bullet">Community verification hubs</div>
+   </div>
+   <div class="partner-card">
+    <h3>Government and institutions</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">VeriWrk can integrate with national ID infrastructure and support workforce formalisation at a systemic level.</p>
+    <div class="partner-bullet">NIN and BVN API integration</div>
+    <div class="partner-bullet">Workforce data reporting</div>
+    <div class="partner-bullet">Public sector hiring pipelines</div>
+   </div>
+   <div class="partner-card">
+    <h3>Enterprise employers</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Hire better, faster, and with more confidence. Enterprise partners get early access to verified talent pools and custom hiring workflows.</p>
+    <div class="partner-bullet">Priority candidate access</div>
+    <div class="partner-bullet">Bulk verification tools</div>
+    <div class="partner-bullet">Dedicated account support</div>
+   </div>
+  </div>
+  <div style="margin-top:32px;padding:28px;background:linear-gradient(135deg,rgba(245,166,35,0.08),rgba(245,166,35,0.03));border:1px solid rgba(245,166,35,0.2);border-radius:14px;">
+   <p style="font-size:15px;color:var(--text);line-height:1.6;">We're raising a pre-seed round from investors who believe in economic inclusion, workforce formalisation, and the long term potential of Africa's labour market. If that's you, we'd love to talk.</p>
+   <a href="mailto:hello@veriwrk.com" style="display:inline-block;margin-top:16px;font-size:14px;font-weight:600;color:var(--orange);text-decoration:none;">Request a deck →</a>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- FAQ -->
+<div class="solution-wrap" id="faq">
+ <div class="section">
+  <p class="section-eyebrow">Common questions</p>
+  <h2 class="section-title">Things people ask us.</h2>
+  <div class="faq-grid">
+   <div class="faq-card">
+    <p class="faq-q">Is VeriWrk free for workers?</p>
+    <p class="faq-a">Yes. Creating a VeriWrk profile and getting verified is free for individual workers. We believe access to opportunity shouldn't cost you money. Our business model is employer side, not worker side.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">What documents do I need to get verified?</p>
+    <p class="faq-a">You'll need at least one valid government-issued ID. Your NIN or BVN works perfectly. We also accept valid driver's licences and international passports.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">How does skills verification work?</p>
+    <p class="faq-a">Depending on your trade or profession, we use a combination of short practical assessments, work sample reviews, and verified references from people you've worked with.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">Who can see my profile?</p>
+    <p class="faq-a">You control your profile. By default it's visible to verified employers on the platform. You can adjust your visibility settings at any time and you'll always be notified before any employer views or contacts you.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">I'm an employer. How do I access verified candidates?</p>
+    <p class="faq-a">Employers can register for early access now. Once onboarded, you'll be able to search our verified talent pool by role, skills, location, and availability.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">Is my data safe with VeriWrk?</p>
+    <p class="faq-a">Absolutely. We use industry-standard encryption and never sell or share your personal data with third parties without your explicit consent. Your VeriWrk profile is yours.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">When does VeriWrk launch?</p>
+    <p class="faq-a">We're in pre-launch now and actively onboarding early access members. We'll be rolling out city by city, starting with Lagos, Abuja, and Port Harcourt.</p>
+   </div>
+   <div class="faq-card">
+    <p class="faq-q">How is VeriWrk different from a regular jobs board?</p>
+    <p class="faq-a">Traditional jobs boards list candidates but don't verify them. VeriWrk is built on verification first. Every profile has been identity-checked and skills-assessed. That trust layer is what makes VeriWrk different.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!-- WAITLIST -->
+
+
+
+<!-- TOOLS SECTION -->
+<div style="background:linear-gradient(180deg,#060d1a 0%,#0a1628 100%);padding:80px 24px;">
+ <div style="max-width:1100px;margin:0 auto;">
+  <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;color:#f5a623;text-transform:uppercase;margin-bottom:14px;text-align:center;">Try it now</p>
+  <h2 style="font-family:'Fraunces',Georgia,serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:#fff;text-align:center;margin-bottom:12px;">Everything you need. <em style="font-style:italic;color:#f5a623;">In one place.</em></h2>
+  <p style="font-size:15px;color:#7a9bbf;text-align:center;max-width:500px;margin:0 auto 48px;line-height:1.6;">Explore our tools built for workers and employers across Nigeria.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+
+   <a href="profile.html" style="text-decoration:none;">
+    <div style="background:linear-gradient(135deg,#111f35 0%,#0d1929 100%);border:1px solid rgba(43,127,212,0.2);border-radius:16px;padding:28px;transition:transform 0.2s,border-color 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(245,166,35,0.5)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(43,127,212,0.2)';this.style.transform='translateY(0)'">
+     <div style="font-size:32px;margin-bottom:14px;">👤</div>
+     <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;">Build your profile</div>
+     <div style="font-size:13px;color:#7a9bbf;line-height:1.6;margin-bottom:16px;">Workers: create your verified digital identity in minutes. Watch your profile come to life in real time.</div>
+     <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#f5a623;">Get started <span>→</span></div>
+    </div>
+   </a>
+
+   <a href="employer.html" style="text-decoration:none;">
+    <div style="background:linear-gradient(135deg,#111f35 0%,#0d1929 100%);border:1px solid rgba(43,127,212,0.2);border-radius:16px;padding:28px;transition:transform 0.2s,border-color 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(43,127,212,0.5)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(43,127,212,0.2)';this.style.transform='translateY(0)'">
+     <div style="font-size:32px;margin-bottom:14px;">🏢</div>
+     <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;">Verify a worker</div>
+     <div style="font-size:13px;color:#7a9bbf;line-height:1.6;margin-bottom:16px;">Employers: submit a verification request in minutes. Identity, credentials, background; all in one place.</div>
+     <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#2b7fd4;">Submit request <span>→</span></div>
+    </div>
+   </a>
+
+   <a href="calculator.html" style="text-decoration:none;">
+    <div style="background:linear-gradient(135deg,#111f35 0%,#0d1929 100%);border:1px solid rgba(43,127,212,0.2);border-radius:16px;padding:28px;transition:transform 0.2s,border-color 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(29,158,117,0.5)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(43,127,212,0.2)';this.style.transform='translateY(0)'">
+     <div style="font-size:32px;margin-bottom:14px;">📊</div>
+     <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;">ROI calculator</div>
+     <div style="font-size:13px;color:#7a9bbf;line-height:1.6;margin-bottom:16px;">See exactly how much unverified hiring is costing your business, and what VeriWrk saves you.</div>
+     <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1d9e75;">Calculate now <span>→</span></div>
+    </div>
+   </a>
+
+  </div>
+ </div>
+</div>
+
+
+
+<div class="waitlist-wrap" id="waitlist">
+ <div class="waitlist-inner">
+  <p class="section-eyebrow">Early access</p>
+  <h2 class="section-title" style="text-align:center;">Be part of what<br><em>comes next.</em></h2>
+  <p style="font-size:16px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6;">VeriWrk launches soon. Join the waitlist today and you'll be among the first to access the platform. Whether you're a worker ready to get verified, an employer ready to hire with confidence, or a partner ready to scale impact.</p>
+  <div class="waitlist-card">
+   <p class="waitlist-card-title">Reserve your spot</p>
+   <p class="waitlist-card-sub">Tell us who you are and we'll reach out with priority access when we launch in your area.</p>
+   <div class="toggle-group">
+    <button class="toggle-btn active" onclick="setType(this)">I'm a worker</button>
+    <button class="toggle-btn" onclick="setType(this)">I'm an employer</button>
+    <button class="toggle-btn" onclick="setType(this)">Partner / Investor</button>
+   </div>
+   <div class="form-grid">
+    <div class="form-field">
+     <label>Full name</label>
+     <input type="text" placeholder="Your full name">
+    </div>
+    <div class="form-field">
+     <label>Email address</label>
+     <input type="email" placeholder="you@example.com">
+    </div>
+    <div class="form-field">
+     <label>Phone number (optional)</label>
+     <input type="tel" placeholder="+234 ...">
+    </div>
+    <div class="form-field">
+     <label>State / City</label>
+     <input type="text" placeholder="e.g. Lagos">
+    </div>
+   </div>
+   <button class="btn-waitlist" onclick="handleWaitlist(this)">Join the waitlist →</button>
+   <p class="form-note">No spam, no selling your data. Just a message when we're ready for you.</p>
+  </div>
+ </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+ <div>
+  <div class="footer-logo"><img src="data:image/png;base64,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" alt="VeriWrk" style="height:24px;width:auto;image-rendering:-webkit-optimize-contrast;"><span class="footer-logo-text">veriwrk</span></div>
+  <p class="footer-tagline">Formalising Nigeria's workforce, one worker at a time.</p>
+  <p style="font-size:12px;color:var(--muted);margin-top:8px;">© 2026 VeriWrk Ltd</p>
+ </div>
+ <div class="footer-links">
+  <a href="mailto:hello@veriwrk.com">Contact</a>
+  <a href="#">Privacy</a>
+  <a href="#">Terms</a>
+ </div>
+</footer>
+
+<script>
+function setType(btn) {
+ document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+ btn.classList.add('active');
+}
+
+function handleWaitlist(btn) {
+ btn.textContent = '✓ You\'re on the list!';
+ btn.style.background = 'linear-gradient(135deg, #1d9e75, #158a63)';
+ btn.disabled = true;
+}
+</script>
+
+
+<script>
+if('serviceWorker' in navigator){
+ window.addEventListener('load', function(){
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+   console.log('VeriWrk SW registered');
+  }).catch(function(err){
+   console.log('SW error:', err);
+  });
+ });
+}
+</script>
+</body>
+</html>
